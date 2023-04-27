@@ -1,10 +1,5 @@
-#include <algorithm>
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <fstream>
-#include <sstream>
+#include "header.h"
+
 
 typedef struct Student {
 	std::string fullName;
@@ -14,15 +9,6 @@ typedef struct Student {
 	float GPA;
 	int ID;
 } Student;
-
-/*
----------------------------------------
--------------------------------------
-*/
-
-Student students[100];
-
-// Functions
 
 // Print line
 void printDash(int n) {
@@ -48,6 +34,16 @@ void menu() {
 	std::cout << "|  " << "0. Exit" << std::setw(60) << std::right << "|" << std::endl;
 	std::cout << "|" << std::setw(69) << std::right << "|" << std::endl;
 	printDash(70);
+}
+
+// Search by ID
+int searchByID(const Student arr[], int n, int ID) {
+  for (int i = 0; i < n; i++) {
+    if (arr[i].ID == ID) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 // 1. Add students
@@ -84,15 +80,7 @@ void addStudent(Student arr[], int& n) {
 }
 
 // 2. Search for students by ID
-int searchByID(const Student arr[], int n, int ID) {
-  for (int i = 0; i < n; i++) {
-    if (arr[i].ID == ID) {
-      return i;
-    }
-  }
-  return -1;
-}
-void displayStudentByID(Student arr[], int n) {\
+void displayStudentByID(Student arr[], int n) {
 	std::cout << "Enter the ID of the student: ";
   int ID;
   std::cin >> ID;
@@ -177,32 +165,60 @@ void listOfStudentsByName(const Student* s, int n) {
 
 // 6. Update student information
 void updateStudent(Student* s, int n) {
-  std::cout << "Enter the ID of the student: ";
-  int ID;
-  std::cin >> ID;
-	int index = searchByID(s, n, ID);
-	if(index == -1) {
-		std::cout << "No student found with ID: " << ID << std::endl;
-		return;
-	}
-  if (index != -1) {
-    std::cout << "Enter the new information for the student:" << std::endl;
-    std::cout << "Full name: ";
-    std::cin.ignore(); // Ignore the newline character left in the buffer by previous input
-    std::getline(std::cin, s[index].fullName);
-    std::cout << "Home town: ";
-    std::getline(std::cin, s[index].homeTown);
-    std::cout << "Birth day: ";
-    std::getline(std::cin, s[index].birthDay);
-    std::cout << "Score: ";
-    std::cin >> s[index].score;
+  while (true) {
+    int ID;
+    std::cout << "Enter the ID of the student(or enter 0 to finish): ";
+    std::cin >> ID;
+    int index = searchByID(s, n, ID);
+    if(ID == 0) {
+      system("cls");
+      return;
+    }
+    if(index == -1) {
+      std::cout << "No student found with ID: " << ID << std::endl;
+      return;
+    }
+    while (true) {
+      std::cout << "What would you like to update for this student?" << std::endl;
+      std::cout << "1. Full name" << std::endl;
+      std::cout << "2. Hometown" << std::endl;
+      std::cout << "3. Birthday" << std::endl;
+      std::cout << "4. Score" << std::endl;
+      std::cout << "0. Done" << std::endl;
+      std::cout << "Enter your choice: ";
+      int choice;
+      std::cin >> choice;
+      if (choice == 0) {
+        break;
+      }
+      switch (choice) {
+        case 1:
+          std::cout << "Full name: ";
+          std::cin.ignore();
+          std::getline(std::cin, s[index].fullName);
+          break;
+        case 2:
+          std::cout << "Hometown: ";
+          std::cin.ignore();
+          std::getline(std::cin, s[index].homeTown);
+          break;
+        case 3:
+          std::cout << "Birthday: ";
+          std::cin.ignore();
+          std::getline(std::cin, s[index].birthDay);
+          break;
+        case 4:
+          std::cout << "Score: ";
+          std::cin >> s[index].score;
+          break;
+        default:
+          std::cout << "Invalid choice. Please try again." << std::endl;
+          break;
+      }
+    }
     std::cout << "The information of the student with ID " << ID << " has been updated." << std::endl;
   }
-  else {
-    std::cout << "Cannot find the student with ID " << ID << "." << std::endl;
-  }
 }
-
 
 // 7. Remove student
 void removeStudent(Student arr[], int& n) {
@@ -239,57 +255,7 @@ void outFile(const Student* s, int n, std::ofstream& outstream) {
               << std::left << std::setw(maxGPA) << std::fixed << std::setprecision(1) << s[i].GPA 
               <<std::endl;
   }
-  outfile.open("students.txt");
+  outfile.open("../text/students.txt");
   outFile(s, n, outfile);
   outfile.close();
-}
-
-int main() {
-	int n = 0;
-  std::ofstream outfile;
-	int choose;
-	do {
-		menu();
-		std::cout << "Choose (0 - 8): ";
-		std::cin >> choose;
-		switch(choose)
-		{
-		case 1:
-			system("cls");
-			addStudent(students, n);
-			break;
-		case 2:
-			system("cls");
-			displayStudentByID(students, n);
-			break;
-		case 3:
-			system("cls");
-      listOfStudents(students, n);
-			break;
-		case 4:
-			system("cls");
-      listOfStudentsByGPA(students, n);
-			break;
-		case 5:
-			system("cls");
-      listOfStudentsByName(students, n);
-			break;
-		case 6:
-			system("cls");
-      updateStudent(students, n);
-			break;
-		case 7:
-			system("cls");
-      removeStudent(students, n);
-			break;
-    case 8:
-			system("cls");
-      outFile(students, n, outfile);
-			break;
-		case 0:
-			system("cls");
-			break;
-		}
-	} while(choose != 0);
-	return 0;
 }
