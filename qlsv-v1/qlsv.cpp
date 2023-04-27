@@ -31,13 +31,6 @@ void printDash(int n) {
 	std::cout << std::endl;
 }
 
-void printDashO(int n, std::ofstream& outstream) {
-	for(int i = 0; i < n; i++) {
-		outstream << "-";
-	}
-	outstream << std::endl;
-}
-
 // Menu
 void menu() {
 	printDash(70);
@@ -218,36 +211,21 @@ void updateStudent(Student* s, int n) {
 
 
 // 7. Remove student
-void removeStudent(Student s[], int n) {
-  std::cout << "Enter the ID of the student: ";
-  int ID;
-  std::cin >> ID;
-	int index = searchByID(s, n, ID);
-	if(index == -1) {
-		std::cout << "No student found with ID: " << ID << std::endl;
-		return;
-	}
-  if (index != -1) {
-    // Remove the student at position index
-    for (int i = index; i < n - 1; i++) {
-        s[i] = s[i + 1];
-      }
-      // decrement the number of students by one
-      n--;
-    // Deallocate memory of the removed student
-    Student* temp = new Student[n];
-    for (int i = 0; i < n; i++) {
-      temp[i] = s[i];
+void removeStudent(Student arr[], int& n) {
+    std::cout << "Enter the ID of the student you want to remove: ";
+    int ID;
+    std::cin >> ID;
+    int index = searchByID(arr, n, ID);
+    if (index == -1) {
+        std::cout << "No student found with ID: " << ID << std::endl;
+        return;
     }
-    delete[] s;
-    s = temp;
-    std::cout << "The student with ID " << ID << " has been removed." << std::endl;
-  }
-  else {
-    std::cout << "Cannot find the student with ID " << ID << "." << std::endl;
-  }
+    for (int i = index; i < n - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    n--;
+    std::cout << "Student with ID " << ID << " has been removed successfully." << std::endl;
 }
-
 
 // 8. Put the student list in the "student.txt" file
 void outFile(const Student* s, int n, std::ofstream& outstream) {
