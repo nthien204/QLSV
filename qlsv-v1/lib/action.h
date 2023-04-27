@@ -258,7 +258,7 @@ void outFile(const Student* s, int n, std::ofstream& outstream) {
               << std::left << std::setw(maxGPA) << std::fixed << std::setprecision(1) << s[i].GPA 
               <<std::endl;
   }
-  outfile.open("../text/students.txt");
+  outfile.open("../out/students.txt");
   outFile(s, n, outfile);
   outfile.close();
 }
