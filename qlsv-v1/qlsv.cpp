@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <sstream>
 
 typedef struct Student {
 	std::string fullName;
@@ -124,9 +125,9 @@ void listOfStudents(const Student* s, int n) {
   std::cout << "|" << std::left << std::setw(10) << "STT" 
             << std::left << std::setw(maxIDWidth) << "ID" 
             << std::left << std::setw(maxNameWidth) << "Full Name"
-            << std::left << std::setw(maxGPA) << "GPA" 
             << std::left << std::setw(maxHometown) << "Hometown"
             << std::left << std::setw(maxBirthday) << "Birthday"
+            << std::left << std::setw(maxGPA) << "GPA" 
             << "|" 
             << std::endl;
   for (int i = 0; i < n; i++) {
@@ -134,16 +135,9 @@ void listOfStudents(const Student* s, int n) {
               << std::left << std::setw(10) << i + 1 
               << std::left << std::setw(maxIDWidth) << s[i].ID 
               << std::left << std::setw(maxNameWidth) << s[i].fullName 
-              << std::left << std::setw(maxGPA) 
-              << std::fixed 
-              << std::setprecision(1) 
-              << s[i].GPA 
-              << std::left 
-              << std::setw(maxHometown) 
-              << s[i].homeTown
-              << std::left 
-              << std::setw(maxBirthday) 
-              << s[i].birthDay
+              << std::left << std::setw(maxHometown) << s[i].homeTown
+              << std::left << std::setw(maxBirthday) << s[i].birthDay
+              << std::left << std::setw(maxGPA) << std::fixed << std::setprecision(1) << s[i].GPA 
               <<"|" 
               <<std::endl;
   }
@@ -235,22 +229,14 @@ void outFile(const Student* s, int n, std::ofstream& outstream) {
   int maxGPA = 12;
   int maxHometown = 16; // Set max hometown
   int maxBirthday = 16; // Set max birthday
-  outstream << "List of students" << std::endl;
-  outstream << std::endl;
-  outstream << std::left << std::setw(10) << "STT" 
-            << std::left << std::setw(maxIDWidth) << "ID" 
-            << std::left << std::setw(maxNameWidth) << "Full Name" 
-            << std::left << std::setw(maxGPA) << "GPA" 
-            << std::left << std::setw(maxHometown) << "Hometown" 
-            << std::left << std::setw(maxBirthday) << "Birthday" 
-            << std::endl;
+  outstream << std::right << "List of students" << std::endl << std::endl;
   for (int i = 0; i < n; i++) {
     outstream << std::left << std::setw(10) << i + 1 
               << std::left << std::setw(maxIDWidth) << s[i].ID 
               << std::left << std::setw(maxNameWidth) << s[i].fullName 
-              << std::left << std::setw(maxGPA) << std::fixed << std::setprecision(1) << s[i].GPA 
               << std::left << std::setw(maxHometown) << s[i].homeTown 
               << std::left << std::setw(maxBirthday) << s[i].birthDay 
+              << std::left << std::setw(maxGPA) << std::fixed << std::setprecision(1) << s[i].GPA 
               <<std::endl;
   }
   outfile.open("students.txt");
