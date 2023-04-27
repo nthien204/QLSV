@@ -9,6 +9,10 @@ typedef struct Student {
 	int ID;
 } Student;
 
+Student students[100];
+int n = 0;
+std::ofstream outfile;
+
 // Print line
 void printDash(int n) {
 	for(int i = 0; i < n; i++) {

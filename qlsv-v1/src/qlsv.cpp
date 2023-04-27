@@ -27,9 +27,6 @@ void removeStudent(Student arr[], int& n);
 void outFile(const Student* s, int n, std::ofstream& outstream);
 
 int main() {
-  Student students[100];
-  int n = 0;
-  std::ofstream outfile;
   int choose;
 	do {
 		menu();
