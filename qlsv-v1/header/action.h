@@ -1,6 +1,5 @@
 #include "header.h"
 
-
 typedef struct Student {
 	std::string fullName;
 	std::string homeTown;
