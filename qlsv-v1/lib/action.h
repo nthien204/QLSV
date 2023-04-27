@@ -97,7 +97,6 @@ void displayStudentByID(Student arr[], int n) {
   std::cout << "Hometown: " << arr[index].homeTown << std::endl;
   std::cout << "Birthday: " << arr[index].birthDay << std::endl;
   std::cout << "Score: " << arr[index].score << std::endl;
-  std::cout << "GPA: " << arr[index].GPA << std::endl;
 }
 
 // 3. Display a list of students
