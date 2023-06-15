@@ -27,48 +27,47 @@ void removeStudent(Student arr[], int& n);
 void outFile(const Student* s, int n, std::ofstream& outstream);
 
 int main() {
-  int choose;
+	int choose;
 	do {
 		menu();
 		std::cout << "Choose (0 - 8): ";
 		std::cin >> choose;
-		switch(choose)
-		{
-		case 1:
-			system("cls");
-			addStudent(students, n);
-			break;
-		case 2:
-			system("cls");
-			displayStudentByID(students, n);
-			break;
-		case 3:
-			system("cls");
-      listOfStudents(students, n);
-			break;
-		case 4:
-			system("cls");
-      listOfStudentsByGPA(students, n);
-			break;
-		case 5:
-			system("cls");
-      listOfStudentsByName(students, n);
-			break;
-		case 6:
-			system("cls");
-      updateStudent(students, n);
-			break;
-		case 7:
-			system("cls");
-      removeStudent(students, n);
-			break;
-    case 8:
-			system("cls");
-      outFile(students, n, outfile);
-			break;
-		case 0:
-			system("cls");
-			break;
+		switch(choose) {
+			case 1:
+				system("cls");
+				addStudent(students, n);
+				break;
+			case 2:
+				system("cls");
+				displayStudentByID(students, n);
+				break;
+			case 3:
+				system("cls");
+				listOfStudents(students, n);
+				break;
+			case 4:
+				system("cls");
+				listOfStudentsByGPA(students, n);
+				break;
+			case 5:
+				system("cls");
+				listOfStudentsByName(students, n);
+				break;
+			case 6:
+				system("cls");
+				updateStudent(students, n);
+				break;
+			case 7:
+				system("cls");
+				removeStudent(students, n);
+				break;
+			case 8:
+				system("cls");
+				outFile(students, n, outfile);
+				break;
+			case 0:
+				system("cls");
+				break;
 		}
 	} while(choose != 0);
 	return 0;

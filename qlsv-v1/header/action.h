@@ -96,7 +96,7 @@ void displayStudentByID(Student arr[], int n) {
   std::cout << "Name: " << arr[index].fullName << std::endl;
   std::cout << "Hometown: " << arr[index].homeTown << std::endl;
   std::cout << "Birthday: " << arr[index].birthDay << std::endl;
-  std::cout << "Score: " << arr[index].score << std::endl;
+  std::cout << "GPA: " << arr[index].GPA << std::endl;
 }
 
 // 3. Display a list of students
@@ -212,6 +212,7 @@ void updateStudent(Student* s, int n) {
         case 4:
           std::cout << "Score: ";
           std::cin >> s[index].score;
+          s[index].GPA = s[index].score * 40 / 100;
           break;
         default:
           std::cout << "Invalid choice. Please try again." << std::endl;
